@@ -28,11 +28,15 @@ ext_wasm = []
 sum_std = []
 
 sum_wasm8f = [ "ext_wasm" ]
+sum_wasm4f = [ "ext_wasm" ]
 sum_wasm = [
     "sum_wasm8f",
+    "sum_wasm4f",
 ]
 
 sum_simd8f = [ "ext_wasm" ]
+sum_simd4f = [ "ext_wasm" ]
 sum_simd = [
     "sum_simd8f",
+    "sum_simd4f",
 ]
