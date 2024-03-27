@@ -12,45 +12,49 @@ import { readFile } from "node:fs/promises";
       const {
         memory,
 
-        sum_in_resize8f,
-        sum_in_resize4f,
-
-        sum_in_ptr8f,
-        sum_in_ptr4f,
-
-        sum_std8f,
-        sum_std4f,
-
-        sum_simd8f,
-        sum_simd4f,
+        cnt_in_resize3u,
+        cnt_in_ptr3u,
+        cntif3u_ge,
+        cntif3u_ge_simd_chunk16,
       } = instance?.exports || {};
 
-      const isz = 131072;
+      const isz = 16777216;
 
-      //const icap = sum_in_resize8f(isz);
-      const icap = sum_in_resize4f(isz);
-      //const iview = new Float64Array(memory?.buffer, sum_in_ptr8f(), isz);
-      const iview = new Float32Array(memory?.buffer, sum_in_ptr4f(), isz);
+      const icap = cnt_in_resize3u(isz);
+      const iview = new Uint8Array(memory?.buffer, cnt_in_ptr3u(), isz);
+      for (let i = 0; i < isz; i++) {
+        iview[i] = i;
+      }
 
-      const lpcnt = 16384;
+      const lpcnt = 128;
 
       const funcs = {
-        sum_wasm: sum_std4f,
-        sum_simd: sum_simd4f,
-        sum_node: () => iview.reduce((state, next) => state + next, 0.0),
+        cnt_wasm: cntif3u_ge,
+        cnt_simd: cntif3u_ge_simd_chunk16,
+        cnt_node: (lbi = 100) =>
+          iview.reduce(
+            (state, next) => {
+              const isGe = lbi <= next;
+              const add = isGe ? 1 : 0;
+              return state + add;
+            },
+            0,
+          ),
       };
 
+      const age = 100;
+
       return Object.keys(funcs).map((key) => {
-        if ("sum_node" !== key) { // wasm: mem copy may be required
+        if ("cnt_node" !== key) { // wasm: mem copy may be required
           for (let i = 0; i < isz; i++) {
-            iview[i] = i + 0.5;
+            iview[i] = i;
           }
         }
         const f = funcs[key];
         const started = Date.now();
-        let rslt = 0.0;
+        let rslt = 0;
         for (let i = 0; i < lpcnt; i++) {
-          rslt = f();
+          rslt = f(age);
         }
         const elapsed = Date.now() - started;
         return { name: key, elapsed, rslt };

@@ -26,6 +26,7 @@ codegen-units = 16
 ext_wasm = []
 
 sum_std = []
+cnt_std = []
 
 sum_wasm8f = [ "ext_wasm" ]
 sum_wasm4f = [ "ext_wasm" ]
@@ -39,4 +40,14 @@ sum_simd4f = [ "ext_wasm" ]
 sum_simd = [
     "sum_simd8f",
     "sum_simd4f",
+]
+
+cnt_wasm3u = [ "ext_wasm" ]
+cnt_wasm = [
+    "cnt_wasm3u",
+]
+
+cnt_simd3u = [ "ext_wasm" ]
+cnt_simd = [
+    "cnt_simd3u",
 ]
