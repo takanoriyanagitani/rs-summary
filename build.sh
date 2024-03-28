@@ -10,6 +10,12 @@ features() {
 	echo cnt_std
 	echo cnt_wasm
 	echo cnt_simd
+
+	echo mean_arithmetic
+	echo mean_simd
+	echo mean_arithmetic_std
+	echo mean_arithmetic_wasm
+	echo mean_arithmetic_simd
 }
 
 export RUSTFLAGS='-C target_feature=+simd128'
