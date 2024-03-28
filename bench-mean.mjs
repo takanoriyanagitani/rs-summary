@@ -12,9 +12,6 @@ import { readFile } from "node:fs/promises";
       const {
         memory,
 
-        cntif3u_ge,
-        cntif3u_ge_simd_chunk16,
-
         mean_arithmetic_in_ptr5f,
         mean_arithmetic_in_resize5f,
         mean_arithmetic5f_std_fast,
