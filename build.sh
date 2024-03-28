@@ -11,6 +11,10 @@ features() {
 	echo cnt_wasm
 	echo cnt_simd
 
+	echo max_std
+	echo max_wasm
+	echo max_simd
+
 	echo mean_arithmetic
 	echo mean_simd
 	echo mean_arithmetic_std

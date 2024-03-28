@@ -28,6 +28,7 @@ ext_wasm = []
 sum_std = []
 cnt_std = []
 mean_arithmetic_std = []
+max_std = []
 
 sum_wasm8f = [ "ext_wasm" ]
 sum_wasm4f = [ "ext_wasm" ]
@@ -51,6 +52,16 @@ cnt_wasm = [
 cnt_simd3u = [ "ext_wasm" ]
 cnt_simd = [
     "cnt_simd3u",
+]
+
+max_wasm6i = [ "ext_wasm" ]
+max_wasm = [
+    "max_wasm6i",
+]
+
+max_simd6i = [ "ext_wasm" ]
+max_simd = [
+    "max_simd6i",
 ]
 
 mean_arithmetic = []
