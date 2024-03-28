@@ -51,6 +51,7 @@ pub fn sum_simd8f_chunk2(s: &[f64]) -> f64 {
         let f2: f64 = s.get(1).copied().unwrap_or_default();
         f64x2(f1, f2)
     });
+    #[allow(clippy::redundant_closure)]
     let tot: v128 = vs.fold(f64x2(0.0, 0.0), |state, next| f64x2_add(state, next));
     let fa: f64 = f64x2_extract_lane::<0>(tot);
     let fb: f64 = f64x2_extract_lane::<1>(tot);

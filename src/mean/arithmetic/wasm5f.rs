@@ -66,6 +66,7 @@ pub fn f32sum_chunk4_fast(s: &[f32]) -> f32 {
         let f3: f32 = s4.get(3).copied().unwrap_or_default();
         f32x4(f0, f1, f2, f3)
     });
+    #[allow(clippy::redundant_closure)]
     let vsum: v128 = v7s.fold(f32x4_splat(0.0), |state, next| f32x4_add(state, next));
     let fa: f32 = f32x4_extract_lane::<0>(vsum);
     let fb: f32 = f32x4_extract_lane::<1>(vsum);
